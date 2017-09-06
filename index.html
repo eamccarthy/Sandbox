@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font: 10px sans-serif;
+}
+
+svg text{
+  fill:grey;
+  font-size:11px;
+}
+svg .values text{
+  pointer-events:none;
+  stroke-width: 0.5px;
+}
+.groups:hover{
+  cursor:pointer;
+  font-weight:bold;
+}
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="http://vizjs.org/viz.v1.1.0.min.js"></script>
+<script>
+
+var data = [['John Dury','Cheney Culpeper',1]
+,['John Dury','Dorothy Moore',5]
+,['John Dury','John Sadler',1]
+,['John Dury','Katherine Jones',6]
+,['John Dury','Mr Godeman',4]
+,['John Dury','Samuel Hartlib',164]
+,['John Dury','Samuel Hartlib Jr',1]
+,['Dorothy Moore','Albert Joachimi',2]
+,['Dorothy Moore','Andre Rivet',8]
+,['Dorothy Moore','Karl Ludwig',1]
+,['Dorothy Moore','Katherine Jones',42]
+,['Dorothy Moore','Lord',3]
+,['Dorothy Moore','Samuel Hartlib',31]
+,['Samuel Hartlib','Dorothy Moore',3]
+,['Samuel Hartlib','John Pell',1]
+,['Samuel Hartlib','John Winthrop the Younger',1]
+,['Samuel Hartlib','John Worthington',3]
+,['Samuel Hartlib','Katherine Jones',3]
+,['Samuel Hartlib','Robert Boyle',12]
+,['Henry Oldenburg','Samuel Hartlib',18]
+,['Cheney Culpeper','John Dury',1]
+,['Cheney Culpeper','Samuel Hartlib',16]
+,['John Beale','Henry Oldenburg',1]
+,['John Beale','Katherine Jones',4]
+,['John Beale','Samuel Hartlib',12]
+,['Peter Figulus','Samuel Hartlib',5]
+,['Benjamin Worsley','Katherine Jones',1]
+,['Benjamin Worsley','Samuel Hartlib',3]
+,['Katherine Jones','John Sadler',1]
+,['Katherine Jones','Samuel Hartlib',3]
+,['Anna Maria van Schurman','Dorothy Moore',3]
+,['William Spenser','Samuel Hartlib',3]
+,['Andre Rivet','Dorothy Moore',2]
+,['John Worthington','Samuel Hartlib',2]
+,['Margaret Clotworthy','John Dury',2]
+,['Nicholas Corsellis','Samuel Hartlib',1]
+,['Cressy Dymock','Katherine Jones', 1]
+,['Henry Harington','Samuel Hartlib', 1]
+,['John Aston','Samuel Hartlib',1]
+,['John Sadler','Katherine Jones',1]
+,['Monsieur Fountaine','Katherine Jones',1]
+,['Samuel Hartlib Jr','Samuel Hartlib',1]
+,['William Hamilton','Samuel Hartlib',1]
+,['William Rand','Samuel Hartlib',1]
+
+];
+
+var colors = {
+"John Dury":         "#da4480"
+,"Dorothy Moore":    "#5ab449"
+,"Samuel Hartlib":    "#7f5acd"
+,"Henry Oldenburg":        "#aab740"
+,"Cheney Culpeper": "#ce58c0"
+,"John Beale":        "#50a26e"
+,"Peter Figulus": "#d1434b"
+,"Benjamin Worsley":      "#45c0bc"
+,"Katherine Jones":"#ce5929"
+,"Anna Maria van Schurman": "#4e7bda"
+,"William Spenser":  "#d49d3c"
+,"Andre Rivet":   "#6660a3"
+,"John Worthington":    "#7b853c"
+,"Margaret Clotworthy":     "#b58dde"
+,"Nicholas Corsellis":     "#97622e"
+,"Cressy Dymock":   "#609dd6"
+,"Henry Harington":      "#e29074"
+,"John Aston":        "#9c4b88"
+,"John Sadler":  "#ab505f"
+,"Monsieur Fountaine":   "#dc85b6"
+,"Samuel Hartlib Jr":   "#dc85b7"
+,"William Hamilton":   "#8c85b8"
+,"William Rand":   "#ab85b9"
+,"Mr Godeman": "#81a3db"
+,"Albert Joachimi": "#80c9a1"
+,"Karl Ludwig": "#c980b7"
+,"Lord": "#e8aa63"
+,"John Pell": "#4ab29f"
+,"John Winthrop the Younger": "#701425"
+,"Robert Boyle": "#354732"
+};
+
+var sortOrder =[
+"John Dury"
+,"Dorothy Moore"
+,"Samuel Hartib"
+,'Henry Oldenburg'
+,'Cheney Culpeper'
+,'John Beale'
+,'Peter Figulus'
+,'Benjamin Worsley'
+,'Katherine Jones'
+,'Anna Maria van Schurman'
+,'William Spenser'
+,'Andre Rivet'
+,'John Worthington'
+,'Margaret Clotworthy'
+,'Nicholas Corsellis'
+,'Cressy Dymock'
+,'Henry Harington'
+,'John Aston'
+,'John Sadler'
+,'Monsieur Fountaine'
+,'Samuel Hartlib Jr'
+,'William Hamilton'
+,'William Rand'
+];
+
+function sort(a,b){ return d3.ascending(sortOrder.indexOf(a),sortOrder.indexOf(b)); }
+
+var ch = viz.ch().data(data)
+      .padding(.01)
+      .sort(sort)
+    .innerRadius(350)
+    .outerRadius(400)
+    .duration(1000)
+    .chordOpacity(0.35)
+    .labelPadding(.05)
+      .fill(function(d){ return colors[d];});
+
+var width=1200, height=1100;
+
+var svg = d3.select("body").append("svg").attr("height",height).attr("width",width);
+
+svg.append("g").attr("transform", "translate(600,550)").call(ch);
+
+// adjust height of frame in bl.ocks.org
+d3.select(self.frameElement).style("height", height+"px").style("width", width+"px");     
+</script>
